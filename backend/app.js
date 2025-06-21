@@ -7,20 +7,14 @@ const app = express();
 const router = express.Router();
 
 config({ path: "./config.env" });
-
-app.use(
-  cors({
-    origin: [process.env.FRONTEND_URL],
-    methods: ["POST"],
-    credentials: true,
-  })
-);
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 router.post("/send/mail", async (req, res, next) => {
   const { name, email, message } = req.body;
+  console.log(req.body, "HELLO BACKEND MESSAGE");
   if (!name || !email || !message) {
     return next(
       res.status(400).json({
@@ -31,7 +25,7 @@ router.post("/send/mail", async (req, res, next) => {
   }
   try {
     await sendEmail({
-      email: "merndeveloper4@gmail.com",
+      email: "praj94302@gmail.com",
       subject: "GYM WEBSITE CONTACT",
       message,
       userEmail: email,
@@ -51,5 +45,5 @@ router.post("/send/mail", async (req, res, next) => {
 app.use(router);
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server listening at port ${process.env.PORT}`);
+  console.log(`Server is Running on This Port ${process.env.PORT}`);
 });

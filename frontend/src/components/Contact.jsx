@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
 
@@ -12,9 +12,10 @@ const Contact = () => {
   const sendMail = async (e) => {
     e.preventDefault();
     setLoading(true);
+    console.log({ name, email, message }, "HELLO EMAIL");
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/send/mail",
+        "http://localhost:3000/send/mail",
         {
           name,
           email,
@@ -25,6 +26,7 @@ const Contact = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
+      console.log(data, "hefbfdhfbvfjh");
       setName("");
       setEmail("");
       setMessage("");
